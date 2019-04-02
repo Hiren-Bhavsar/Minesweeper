@@ -45,14 +45,12 @@ public class MenuGUI extends JFrame {
 		startPanel.setBackground(Color.DARK_GRAY);
 		startPanel.setLayout(null);
 		startPanel.setVisible(true);
-		startPanel.setEnabled(true);
 		startPanel.add(addBackButton());
 
 		menuPanel.setBounds(0, 0, this.WIDTH, this.HEIGHT);
 		menuPanel.setBackground(Color.DARK_GRAY);
 		menuPanel.setLayout(null);
 		menuPanel.setVisible(true);
-		menuPanel.setEnabled(true);
 		menuPanel.add(addExitButton());
 		menuPanel.add(addStartButton());
 		menuPanel.add(addLogo("Minesweeper"));
@@ -84,15 +82,8 @@ public class MenuGUI extends JFrame {
 
 	private JButton addStartButton() {
 		JButton startButton = new JButton("Start");
-		startButton.setForeground(Color.CYAN);
-		startButton.setBackground(Color.DARK_GRAY);
-		startButton.setVerticalAlignment(JButton.CENTER);
-		startButton.setHorizontalAlignment(JButton.CENTER);
-		startButton.setEnabled(true);
-		startButton.setFont(this.font.getFont(40f));
+		buttonInitializer(startButton);
 		startButton.setBounds((this.WIDTH / 3), 170, this.WIDTH / 3, 40);
-		startButton.setFocusPainted(false);
-		startButton.setBorderPainted(false);
 		startButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -105,15 +96,8 @@ public class MenuGUI extends JFrame {
 
 	private JButton addExitButton() {
 		JButton exitButton = new JButton("Exit");
-		exitButton.setForeground(Color.CYAN);
-		exitButton.setBackground(Color.DARK_GRAY);
-		exitButton.setVerticalAlignment(JButton.CENTER);
-		exitButton.setHorizontalAlignment(JButton.CENTER);
-		exitButton.setEnabled(true);
-		exitButton.setFont(this.font.getFont(40f));
+		buttonInitializer(exitButton);
 		exitButton.setBounds((this.WIDTH / 3), 250, this.WIDTH / 3, 40);
-		exitButton.setFocusPainted(false);
-		exitButton.setBorderPainted(false);
 		exitButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -126,15 +110,9 @@ public class MenuGUI extends JFrame {
 
 	private JButton addBackButton() {
 		JButton backButton = new JButton("Back");
-		backButton.setForeground(Color.CYAN);
-		backButton.setBackground(Color.DARK_GRAY);
-		backButton.setVerticalAlignment(JButton.CENTER);
-		backButton.setHorizontalAlignment(JButton.CENTER);
-		backButton.setEnabled(true);
+		buttonInitializer(backButton);
 		backButton.setFont(this.font.getFont(40f));
 		backButton.setBounds((this.WIDTH / 3), 355, this.WIDTH / 3, 40);
-		backButton.setFocusPainted(false);
-		backButton.setBorderPainted(false);
 		backButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -143,6 +121,17 @@ public class MenuGUI extends JFrame {
 			}
 		});
 		return backButton;
+	}
+
+	private void buttonInitializer(JButton b) {
+		b.setForeground(Color.CYAN);
+		b.setBackground(Color.DARK_GRAY);
+		b.setVerticalAlignment(JButton.CENTER);
+		b.setHorizontalAlignment(JButton.CENTER);
+		b.setEnabled(true);
+		b.setFont(this.font.getFont(40f));
+		b.setFocusPainted(false);
+		b.setBorderPainted(false);
 	}
 
 }
