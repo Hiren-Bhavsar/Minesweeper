@@ -1,9 +1,12 @@
 package tsar.hsb;
 
+import tsar.hsb.GUI.MenuGUI;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		MenuGUI menu = new MenuGUI();
+		menu.start();
 
 	}
 
