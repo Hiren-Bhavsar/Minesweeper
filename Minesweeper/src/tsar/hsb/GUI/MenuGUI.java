@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import tsar.hsb.Controller;
 import tsar.hsb.font.CustomFont;
 
 public class MenuGUI extends JFrame {
@@ -137,24 +138,7 @@ public class MenuGUI extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JButton temp = (JButton) e.getSource();
-
-					switch (temp.getText()) {
-
-					case "Easy":
-						// TODO
-						break;
-
-					case "Medium":
-						// TODO
-						break;
-
-					case "Hard":
-						// TODO
-						break;
-
-					default:
-						break;
-					}
+					Controller gameController = new Controller(temp.getText());
 				}
 			});
 		}
