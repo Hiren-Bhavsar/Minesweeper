@@ -3,6 +3,8 @@ package tsar.hsb.GUI;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -112,7 +114,7 @@ public class MenuGUI extends JFrame {
 
 	private JButton addBackButton() {
 		JButton backButton = new JButton("Back");
-		buttonInitializer(backButton, 40f);
+		buttonInitializer(backButton, 32f);
 		backButton.setBounds((this.WIDTH / 3), 355, this.WIDTH / 3, 40);
 		backButton.addActionListener(new ActionListener() {
 
@@ -171,7 +173,41 @@ public class MenuGUI extends JFrame {
 		return gameButtons;
 	}
 
+	MouseListener buttonHover = new MouseListener() {
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			JButton temp = (JButton) e.getSource();
+			temp.setBackground(Color.DARK_GRAY);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			JButton temp = (JButton) e.getSource();
+			temp.setBackground(Color.DARK_GRAY);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			JButton temp = (JButton) e.getSource();
+			temp.setBackground(Color.DARK_GRAY.darker());
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+	};
+
 	private void buttonInitializer(JButton b, float fSize) {
+		b.addMouseListener(buttonHover);
 		b.setForeground(Color.CYAN);
 		b.setBackground(Color.DARK_GRAY);
 		b.setVerticalAlignment(JButton.CENTER);
@@ -181,5 +217,4 @@ public class MenuGUI extends JFrame {
 		b.setFocusPainted(false);
 		b.setBorderPainted(false);
 	}
-
 }

@@ -4,10 +4,12 @@ public class Quadrate {
 
 	private int x, y, numberValue;
 
-	private boolean isBomb;
+	private boolean isMine;
 
 	public Quadrate(int x, int y) {
-
+		this.x = x;
+		this.y = y;
+		this.isMine = false;
 	}
 
 	public void setX(int x) {
@@ -26,12 +28,12 @@ public class Quadrate {
 		return this.y;
 	}
 
-	public void setIsBomb(boolean isBomb) {
-		this.isBomb = isBomb;
+	public void setIsMine(boolean isMine) {
+		this.isMine = isMine;
 	}
 
-	public boolean isBomb() {
-		return this.isBomb;
+	public boolean isMine() {
+		return this.isMine;
 	}
 
 }
