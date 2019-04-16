@@ -4,10 +4,13 @@ import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
 
-	private int numX, numY;
+	private int width, height;
 
-	public GameFrame(int numX, int numY) {
-		this.numX = numX;
-		this.numY = numY;
+	private final int QUADRATE_SIZE = 40;
+
+	public GameFrame(int width, int height) {
+		this.width = width * QUADRATE_SIZE;
+		this.height = height * QUADRATE_SIZE;
 	}
+
 }
