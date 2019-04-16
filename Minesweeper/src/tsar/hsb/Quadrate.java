@@ -36,4 +36,12 @@ public class Quadrate {
 		return this.isMine;
 	}
 
+	public void setNumberValue(int numberValue) {
+		this.numberValue = numberValue;
+	}
+
+	public int getNumberValue() {
+		return this.numberValue;
+	}
+
 }
