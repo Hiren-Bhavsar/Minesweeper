@@ -10,6 +10,7 @@ public class Quadrate {
 		this.x = x;
 		this.y = y;
 		this.isMine = false;
+		this.setNumberValue(0);
 	}
 
 	public void setX(int x) {
