@@ -75,6 +75,10 @@ public class MenuGUI extends JFrame {
 		this.revalidate();
 	}
 
+	private void closeMenuFrame() {
+		this.dispose();
+	}
+
 	private JLabel addLogo(String logoText) {
 		JLabel logoLabel = new JLabel(logoText);
 		logoLabel.setBounds(0, 30, this.WIDTH, 80);
@@ -139,6 +143,7 @@ public class MenuGUI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					JButton temp = (JButton) e.getSource();
 					Controller gameController = new Controller(temp.getText());
+					closeMenuFrame();
 				}
 			});
 		}
@@ -155,6 +160,18 @@ public class MenuGUI extends JFrame {
 		gameButtons[2].setForeground(Color.RED);
 
 		return gameButtons;
+	}
+
+	private void buttonInitializer(JButton b, float fSize) {
+		b.addMouseListener(buttonHover);
+		b.setForeground(Color.CYAN);
+		b.setBackground(Color.DARK_GRAY);
+		b.setVerticalAlignment(JButton.CENTER);
+		b.setHorizontalAlignment(JButton.CENTER);
+		b.setEnabled(true);
+		b.setFont(this.font.getFont(fSize));
+		b.setFocusPainted(false);
+		b.setBorderPainted(false);
 	}
 
 	MouseListener buttonHover = new MouseListener() {
@@ -189,16 +206,4 @@ public class MenuGUI extends JFrame {
 
 		}
 	};
-
-	private void buttonInitializer(JButton b, float fSize) {
-		b.addMouseListener(buttonHover);
-		b.setForeground(Color.CYAN);
-		b.setBackground(Color.DARK_GRAY);
-		b.setVerticalAlignment(JButton.CENTER);
-		b.setHorizontalAlignment(JButton.CENTER);
-		b.setEnabled(true);
-		b.setFont(this.font.getFont(fSize));
-		b.setFocusPainted(false);
-		b.setBorderPainted(false);
-	}
 }
