@@ -20,7 +20,7 @@ public class Controller {
 
 	private void initializeGameData(String difficulty) {
 
-		String[] gameData = new String[4]; // This Actually Doesn't Matter Because It Gets ReWritten Anyway
+		String[] gameData = new String[4]; // This Actually Doesn't Matter Because It Gets Rewritten Anyway
 
 		try (Stream<String> stream = Files.lines(Paths.get("GameData.txt"))) {
 			gameData = stream.filter(s -> s.contains(difficulty)).collect(Collectors.joining()).split(";");
