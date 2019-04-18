@@ -67,7 +67,7 @@ public class Controller {
 			int x = r.nextInt(this.width);
 			int y = r.nextInt(this.height);
 
-			if (!gameBoard[x][y].isMine() && (x != 0 && y != 0) && countMineNeighbours(x, y) < 3) {
+			if (!gameBoard[x][y].isMine() && (x != 0 && y != 0) && countMineNeighbours(x, y) < 2) {
 				temp--;
 				gameBoard[x][y].setIsMine(true);
 			}
