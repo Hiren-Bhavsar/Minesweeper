@@ -25,9 +25,6 @@ public class Controller {
 		gameBoard = new Quadrate[this.width][this.height];
 
 		initializeQuadrates();
-
-		printGameBoard();
-
 	}
 
 	private void initializeGameData(String difficulty) {
