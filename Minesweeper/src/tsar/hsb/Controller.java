@@ -20,7 +20,7 @@ public class Controller {
 	public Controller(String difficulty) {
 		initializeGameData(difficulty.toLowerCase());
 
-		gFrame = new GameFrame(this.width, this.height);
+		gFrame = new GameFrame(this.width, this.height, this.numberOfMines);
 
 		gameBoard = new Quadrate[this.width][this.height];
 
