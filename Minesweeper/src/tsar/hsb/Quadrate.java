@@ -1,33 +1,35 @@
 package tsar.hsb;
 
-public class Quadrate {
+import javax.swing.JButton;
 
-	private int x, y, numberValue;
+public class Quadrate extends JButton {
+
+	private int xArrayPos, yArrayPos, numberValue;
 
 	private boolean isMine, isRevealed;
 
-	public Quadrate(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Quadrate(int xArrayPos, int yArrayPos) {
+		this.xArrayPos = xArrayPos;
+		this.yArrayPos = yArrayPos;
 		this.isMine = false;
 		this.isRevealed = false;
 		this.setNumberValue(0);
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setXArrayPos(int xArrayPos) {
+		this.xArrayPos = xArrayPos;
 	}
 
-	public int getX() {
-		return this.x;
+	public int getXArrayPos() {
+		return this.xArrayPos;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setYArrayPos(int yArrayPos) {
+		this.yArrayPos = yArrayPos;
 	}
 
-	public int getY() {
-		return this.y;
+	public int getYArrayPos() {
+		return this.yArrayPos;
 	}
 
 	public void setIsMine(boolean isMine) {

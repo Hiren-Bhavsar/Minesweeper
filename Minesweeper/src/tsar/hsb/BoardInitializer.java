@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import tsar.hsb.GUI.GameFrame;
 
-public class Controller {
+public class BoardInitializer {
 
 	private int width, height, numberOfMines;
 
@@ -17,7 +17,7 @@ public class Controller {
 
 	private Quadrate[][] gameBoard;
 
-	public Controller(String difficulty) {
+	public BoardInitializer(String difficulty) {
 		initializeGameData(difficulty.toLowerCase());
 		gameBoard = new Quadrate[this.width][this.height];
 		initializeQuadrates();

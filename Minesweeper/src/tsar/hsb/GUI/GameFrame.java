@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.ResourceBundle.Control;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import tsar.hsb.Controller;
+import tsar.hsb.BoardInitializer;
+import tsar.hsb.Quadrate;
 import tsar.hsb.font.CustomFont;
 
 public class GameFrame extends JFrame {
@@ -27,25 +27,25 @@ public class GameFrame extends JFrame {
 
 	private int width, height;
 
-	private JButton[][] buttonBoard;
+	private Quadrate[][] buttonBoard;
 
 	private JPanel menuPanel, gamePanel, scorePanel;
 
 	private JLabel scoreLabel, mineLabel;
 
-	private Controller gameController;
+	private BoardInitializer boardInitializer;
 
 	private Timer time;
 	private boolean isTimeRunning;
 
 	public GameFrame(String difficulty) {
-		initController(difficulty);
-		int[] temp = gameController.getGameInitData();
+		initBoard(difficulty);
+		int[] temp = boardInitializer.getGameInitData();
 		initGame(temp[0], temp[1], temp[2]);
 	}
 
-	private void initController(String difficulty) {
-		gameController = new Controller(difficulty);
+	private void initBoard(String difficulty) {
+		boardInitializer = new BoardInitializer(difficulty);
 	}
 
 	private void initGame(int width, int height, int numMines) {
@@ -55,7 +55,7 @@ public class GameFrame extends JFrame {
 		this.width = width * quadrateSize;
 		this.height = width * quadrateSize;
 
-		buttonBoard = new JButton[width][height];
+		buttonBoard = boardInitializer.getGameBoard();
 
 		this.setSize(this.width, this.height);
 		this.setLayout(new BorderLayout());
@@ -125,6 +125,7 @@ public class GameFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenuItem exit = new JMenuItem("Exit");
+		JMenuItem menu = new JMenuItem("Menu");
 
 		exit.addActionListener(new ActionListener() {
 
@@ -135,6 +136,19 @@ public class GameFrame extends JFrame {
 			}
 		});
 
+		menu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isTimeRunning = false;
+				MenuGUI menu = new MenuGUI();
+				menu.start();
+				closeGameFrame();
+
+			}
+		});
+
+		file.add(menu);
 		file.add(exit);
 		menuBar.add(file);
 		menuBar.setVisible(true);
@@ -153,7 +167,6 @@ public class GameFrame extends JFrame {
 	private void initializeButtonBoard() {
 		for (int y = 0; y < buttonBoard[0].length; y++) {
 			for (int x = 0; x < buttonBoard.length; x++) {
-				buttonBoard[x][y] = new JButton();
 				buttonBoard[x][y].setPreferredSize(new Dimension(quadrateSize, quadrateSize));
 				buttonBoard[x][y].setEnabled(true);
 				buttonBoard[x][y].setBackground(Color.DARK_GRAY);
@@ -166,18 +179,18 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	private void updateBoard() {
-
+	private void closeGameFrame() {
+		this.dispose();
 	}
 
 	ActionListener buttonListener = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			if (!isTimeRunning) {
 				isTimeRunning = true;
 			}
-
+			JButton temp = (JButton) e.getSource();
 		}
 	};
 
