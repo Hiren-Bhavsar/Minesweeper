@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.ResourceBundle.Control;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import tsar.hsb.Controller;
 import tsar.hsb.font.CustomFont;
 
 public class GameFrame extends JFrame {
@@ -31,10 +33,22 @@ public class GameFrame extends JFrame {
 
 	private JLabel scoreLabel, mineLabel;
 
+	private Controller gameController;
+
 	private Timer time;
 	private boolean isTimeRunning;
 
-	public GameFrame(int width, int height, int numMines) {
+	public GameFrame(String difficulty) {
+		initController(difficulty);
+		int[] temp = gameController.getGameInitData();
+		initGame(temp[0], temp[1], temp[2]);
+	}
+
+	private void initController(String difficulty) {
+		gameController = new Controller(difficulty);
+	}
+
+	private void initGame(int width, int height, int numMines) {
 		if (numMines == 99) {
 			quadrateSize = 30;
 		}
@@ -66,6 +80,7 @@ public class GameFrame extends JFrame {
 
 		time = new Timer();
 		time.scheduleAtFixedRate(new UpdateScore(), 0, 1000);
+
 	}
 
 	private void initializeScorePanel(int numMines) {
@@ -138,8 +153,8 @@ public class GameFrame extends JFrame {
 	private void initializeButtonBoard() {
 		for (int y = 0; y < buttonBoard[0].length; y++) {
 			for (int x = 0; x < buttonBoard.length; x++) {
-
 				buttonBoard[x][y] = new JButton();
+				buttonBoard[x][y].setPreferredSize(new Dimension(quadrateSize, quadrateSize));
 				buttonBoard[x][y].setEnabled(true);
 				buttonBoard[x][y].setBackground(Color.DARK_GRAY);
 				buttonBoard[x][y].addActionListener(buttonListener);
@@ -149,6 +164,10 @@ public class GameFrame extends JFrame {
 				gamePanel.add(buttonBoard[x][y]);
 			}
 		}
+	}
+
+	private void updateBoard() {
+
 	}
 
 	ActionListener buttonListener = new ActionListener() {

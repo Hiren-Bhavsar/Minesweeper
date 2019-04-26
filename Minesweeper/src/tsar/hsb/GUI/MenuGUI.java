@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import tsar.hsb.Controller;
 import tsar.hsb.font.CustomFont;
 
 public class MenuGUI extends JFrame {
@@ -142,7 +141,7 @@ public class MenuGUI extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JButton temp = (JButton) e.getSource();
-					Controller gameController = new Controller(temp.getText());
+					GameFrame gameFrame = new GameFrame(temp.getText());
 					closeMenuFrame();
 				}
 			});

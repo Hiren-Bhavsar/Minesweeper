@@ -19,11 +19,7 @@ public class Controller {
 
 	public Controller(String difficulty) {
 		initializeGameData(difficulty.toLowerCase());
-
-		gFrame = new GameFrame(this.width, this.height, this.numberOfMines);
-
 		gameBoard = new Quadrate[this.width][this.height];
-
 		initializeQuadrates();
 	}
 
@@ -40,6 +36,10 @@ public class Controller {
 		this.width = Integer.parseInt(gameData[1]);
 		this.height = Integer.parseInt(gameData[2]);
 		this.numberOfMines = Integer.parseInt(gameData[3]);
+	}
+
+	public int[] getGameInitData() {
+		return new int[] { this.width, this.height, this.numberOfMines };
 	}
 
 	private void initializeQuadrates() {
@@ -89,6 +89,10 @@ public class Controller {
 		}
 
 		return neighbourCount;
+	}
+
+	public Quadrate[][] getGameBoard() {
+		return this.gameBoard;
 	}
 
 	private void printGameBoard() {
