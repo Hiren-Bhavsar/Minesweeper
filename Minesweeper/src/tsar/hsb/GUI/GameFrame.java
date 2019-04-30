@@ -41,7 +41,10 @@ public class GameFrame extends JFrame {
 	private Timer time;
 	private boolean isTimeRunning;
 
+	private String difficulty;
+
 	public GameFrame(String difficulty) {
+		this.difficulty = difficulty;
 		initBoard(difficulty);
 		int[] temp = boardInitializer.getGameInitData();
 		initGame(temp[0], temp[1], temp[2]);
@@ -195,7 +198,7 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	private void closeGameFrame() {
+	public void closeGameFrame() {
 		this.dispose();
 	}
 
@@ -265,7 +268,7 @@ public class GameFrame extends JFrame {
 		for (int a = -1; a < 2; a++) {
 			for (int b = -1; b < 2; b++) {
 				if (a == 0 && b == 0) {
-					//Do Nothing
+					// Do Nothing
 				} else {
 					if (((a + x) >= 0 && (a + x) < buttonBoard.length)
 							&& ((b + y) >= 0 && (b + y) < buttonBoard[0].length)) {
@@ -290,6 +293,11 @@ public class GameFrame extends JFrame {
 				clickedSettingsUpdater(buttonBoard[x][y]);
 			}
 		}
+		PopupDialog p = new PopupDialog(PopupDialog.GameState.LOSS, this);
+	}
+
+	public String getDifficulty() {
+		return this.difficulty;
 	}
 
 	class UpdateScore extends TimerTask {
