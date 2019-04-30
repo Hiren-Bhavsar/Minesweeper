@@ -141,7 +141,7 @@ public class MenuGUI extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JButton temp = (JButton) e.getSource();
-					GameFrame gameFrame = new GameFrame(temp.getText());
+					new GameFrame(temp.getText());
 					closeMenuFrame();
 				}
 			});
@@ -183,8 +183,6 @@ public class MenuGUI extends JFrame {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
@@ -201,8 +199,6 @@ public class MenuGUI extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
 	};
 }

@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -135,18 +134,6 @@ public class GameFrame extends JFrame {
 		JMenuItem exit = new JMenuItem("Exit");
 		JMenuItem menu = new JMenuItem("Menu");
 
-		// TODO
-		JMenuItem reveal = new JMenuItem("Reveal");
-
-		reveal.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				revealAll();
-			}
-		});
-		// TODO
-
 		exit.addActionListener(new ActionListener() {
 
 			@Override
@@ -168,7 +155,6 @@ public class GameFrame extends JFrame {
 			}
 		});
 
-		file.add(reveal);
 		file.add(menu);
 		file.add(exit);
 		menuBar.add(file);
@@ -209,26 +195,15 @@ public class GameFrame extends JFrame {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
-
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
-
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
-
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
@@ -306,7 +281,8 @@ public class GameFrame extends JFrame {
 		}
 
 		if (win) {
-			PopupDialog p = new PopupDialog(GameState.WIN, this);
+			new PopupDialog(GameState.WIN, this);
+			
 		}
 	}
 
@@ -319,7 +295,7 @@ public class GameFrame extends JFrame {
 				q.setEnabled(false);
 			}
 		}
-		PopupDialog pop = new PopupDialog(GameState.LOSS, this);
+		new PopupDialog(GameState.LOSS, this);
 	}
 
 	private Color colorUpdater(int num) {
@@ -328,14 +304,6 @@ public class GameFrame extends JFrame {
 		return colorArray[num];
 	}
 
-	private void revealAll() {
-		for (int y = 0; y < buttonBoard[0].length; y++) {
-			for (int x = 0; x < buttonBoard.length; x++) {
-				clickedSettingsUpdater(buttonBoard[x][y]);
-			}
-		}
-		PopupDialog p = new PopupDialog(GameState.LOSS, this);
-	}
 
 	public String getDifficulty() {
 		return this.difficulty;

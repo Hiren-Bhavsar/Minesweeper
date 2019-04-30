@@ -89,7 +89,7 @@ public class PopupDialog extends JFrame {
 				closeDialog();
 				String d = gf.getDifficulty();
 				gf.closeGameFrame();
-				GameFrame g = new GameFrame(d);
+				new GameFrame(d);
 			}
 		});
 

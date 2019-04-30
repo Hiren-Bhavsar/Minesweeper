@@ -99,6 +99,7 @@ public class BoardInitializer {
 		return this.gameBoard;
 	}
 
+	@SuppressWarnings("unused")
 	private void printGameBoard() {
 		System.out.println();
 		for (int y = 0; y < this.height; y++) {
