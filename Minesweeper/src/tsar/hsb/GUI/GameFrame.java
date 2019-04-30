@@ -3,13 +3,15 @@ package tsar.hsb.GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,6 +28,7 @@ public class GameFrame extends JFrame {
 	private int quadrateSize = 50;
 
 	private int width, height;
+	private float fontSize = 20f;
 
 	private Quadrate[][] buttonBoard;
 
@@ -50,7 +53,8 @@ public class GameFrame extends JFrame {
 
 	private void initGame(int width, int height, int numMines) {
 		if (numMines == 99) {
-			quadrateSize = 30;
+			quadrateSize = 45;
+			fontSize = 15f;
 		}
 		this.width = width * quadrateSize;
 		this.height = width * quadrateSize;
@@ -92,8 +96,6 @@ public class GameFrame extends JFrame {
 
 		scoreLabel = new JLabel("" + 0);
 		mineLabel = new JLabel("" + numMines);
-//		mineLabel.setHorizontalTextPosition(JLabel.RIGHT);
-//		scoreLabel.setHorizontalTextPosition(JLabel.LEFT);
 
 		initializeLabels(mineLabel);
 		initializeLabels(scoreLabel);
@@ -127,6 +129,18 @@ public class GameFrame extends JFrame {
 		JMenuItem exit = new JMenuItem("Exit");
 		JMenuItem menu = new JMenuItem("Menu");
 
+		// TODO
+		JMenuItem reveal = new JMenuItem("Reveal");
+
+		reveal.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				revealAll();
+			}
+		});
+		// TODO
+
 		exit.addActionListener(new ActionListener() {
 
 			@Override
@@ -148,6 +162,7 @@ public class GameFrame extends JFrame {
 			}
 		});
 
+		file.add(reveal);
 		file.add(menu);
 		file.add(exit);
 		menuBar.add(file);
@@ -165,14 +180,15 @@ public class GameFrame extends JFrame {
 	}
 
 	private void initializeButtonBoard() {
+		Font customFont = new CustomFont().getFont(fontSize);
 		for (int y = 0; y < buttonBoard[0].length; y++) {
 			for (int x = 0; x < buttonBoard.length; x++) {
 				buttonBoard[x][y].setPreferredSize(new Dimension(quadrateSize, quadrateSize));
 				buttonBoard[x][y].setEnabled(true);
+				buttonBoard[x][y].setFont(customFont);
 				buttonBoard[x][y].setBackground(Color.DARK_GRAY);
-				buttonBoard[x][y].addActionListener(buttonListener);
-				buttonBoard[x][y].setLayout(null);
-				buttonBoard[x][y].setFocusPainted(false);
+				buttonBoard[x][y].addMouseListener(mouseListener);
+				buttonBoard[x][y].setFocusPainted(true);
 				buttonBoard[x][y].setVisible(true);
 				gamePanel.add(buttonBoard[x][y]);
 			}
@@ -183,16 +199,98 @@ public class GameFrame extends JFrame {
 		this.dispose();
 	}
 
-	ActionListener buttonListener = new ActionListener() {
+	MouseListener mouseListener = new MouseListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (!isTimeRunning) {
-				isTimeRunning = true;
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Quadrate temp = (Quadrate) e.getSource();
+
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				if (!isTimeRunning) {
+					isTimeRunning = true;
+				}
+				clickedSettingsUpdater(temp);
 			}
-			JButton temp = (JButton) e.getSource();
+
+			if (e.getButton() == MouseEvent.BUTTON3) {
+				if (temp.getText().equals("F")) {
+					temp.setText("");
+					mineLabel.setText("" + (Integer.parseInt(mineLabel.getText()) + 1));
+				} else if (!mineLabel.getText().equals("0")) {
+					temp.setText("F");
+					temp.setForeground(Color.RED);
+					mineLabel.setText("" + (Integer.parseInt(mineLabel.getText()) - 1));
+				}
+			}
+
 		}
 	};
+
+	private void clickedSettingsUpdater(Quadrate temp) {
+		if (temp.isEnabled()) {
+			temp.showNumber();
+			temp.setBackground(colorUpdater(temp.getNumberValue()));
+			temp.setEnabled(false);
+			if (temp.getNumberValue() == 0) {
+				floodFillZeros(temp.getXArrayPos(), temp.getYArrayPos());
+			}
+		}
+	}
+
+	private void floodFillZeros(int x, int y) {
+		for (int a = -1; a < 2; a++) {
+			for (int b = -1; b < 2; b++) {
+				if (a == 0 && b == 0) {
+					//Do Nothing
+				} else {
+					if (((a + x) >= 0 && (a + x) < buttonBoard.length)
+							&& ((b + y) >= 0 && (b + y) < buttonBoard[0].length)) {
+						if (buttonBoard[a + x][b + y].getNumberValue() == 0) {
+							clickedSettingsUpdater(buttonBoard[a + x][b + y]);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private Color colorUpdater(int num) {
+		Color[] colorArray = { Color.DARK_GRAY, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED };
+		num = num > 4 ? 4 : num < 0 ? 0 : num;
+		return colorArray[num];
+	}
+
+	private void revealAll() {
+		for (int y = 0; y < buttonBoard[0].length; y++) {
+			for (int x = 0; x < buttonBoard.length; x++) {
+				clickedSettingsUpdater(buttonBoard[x][y]);
+			}
+		}
+	}
 
 	class UpdateScore extends TimerTask {
 

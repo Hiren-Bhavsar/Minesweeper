@@ -52,7 +52,11 @@ public class BoardInitializer {
 
 		for (int x = 0; x < this.width; x++) {
 			for (int y = 0; y < this.height; y++) {
-				gameBoard[x][y].setNumberValue(countMineNeighbours(x, y));
+				if (!gameBoard[x][y].isMine()) {
+					gameBoard[x][y].setNumberValue(countMineNeighbours(x, y));
+				} else {
+					gameBoard[x][y].setNumberValue(-1);
+				}
 			}
 		}
 	}

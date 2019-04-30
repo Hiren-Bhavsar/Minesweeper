@@ -1,5 +1,7 @@
 package tsar.hsb;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 public class Quadrate extends JButton {
@@ -54,6 +56,18 @@ public class Quadrate extends JButton {
 
 	public int getNumberValue() {
 		return this.numberValue;
+	}
+
+	public void setFontColor(Color c) {
+		this.setForeground(c);
+	}
+
+	public void showNumber() {
+		if (isMine) {
+			this.setText("M");
+		} else {
+			this.setText("" + this.getNumberValue());
+		}
 	}
 
 }
