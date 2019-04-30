@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import tsar.hsb.BoardInitializer;
 import tsar.hsb.font.CustomFont;
 
 public class PopupDialog extends JFrame {

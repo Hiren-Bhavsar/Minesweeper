@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -21,11 +22,12 @@ import javax.swing.JPanel;
 
 import tsar.hsb.BoardInitializer;
 import tsar.hsb.Quadrate;
+import tsar.hsb.GUI.PopupDialog.GameState;
 import tsar.hsb.font.CustomFont;
 
 public class GameFrame extends JFrame {
 
-	private int quadrateSize = 50;
+	private int quadrateSize = 50, numMines;
 
 	private int width, height;
 	private float fontSize = 20f;
@@ -55,6 +57,7 @@ public class GameFrame extends JFrame {
 	}
 
 	private void initGame(int width, int height, int numMines) {
+		this.numMines = numMines;
 		if (numMines == 99) {
 			quadrateSize = 45;
 			fontSize = 15f;
@@ -249,12 +252,15 @@ public class GameFrame extends JFrame {
 					mineLabel.setText("" + (Integer.parseInt(mineLabel.getText()) - 1));
 				}
 			}
-
+			checkWin();
 		}
 	};
 
 	private void clickedSettingsUpdater(Quadrate temp) {
 		if (temp.isEnabled()) {
+			if (temp.isMine()) {
+				playerLoss();
+			}
 			temp.showNumber();
 			temp.setBackground(colorUpdater(temp.getNumberValue()));
 			temp.setEnabled(false);
@@ -281,6 +287,41 @@ public class GameFrame extends JFrame {
 		}
 	}
 
+	private void checkWin() {
+		boolean win = false;
+		int enabledButtons = 0;
+		int detectedMines = 0;
+		for (Quadrate[] qArr : buttonBoard) {
+			for (Quadrate q : qArr) {
+				if (q.isEnabled()) {
+					enabledButtons++;
+				}
+				if (q.isMine() && q.getText().equals("F")) {
+					detectedMines++;
+				}
+			}
+		}
+		if (detectedMines == this.numMines || enabledButtons == this.numMines) {
+			win = true;
+		}
+
+		if (win) {
+			PopupDialog p = new PopupDialog(GameState.WIN, this);
+		}
+	}
+
+	private void playerLoss() {
+		for (Quadrate[] qArr : buttonBoard) {
+			for (Quadrate q : qArr) {
+				if (q.isMine()) {
+					q.showNumber();
+				}
+				q.setEnabled(false);
+			}
+		}
+		PopupDialog pop = new PopupDialog(GameState.LOSS, this);
+	}
+
 	private Color colorUpdater(int num) {
 		Color[] colorArray = { Color.DARK_GRAY, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.RED };
 		num = num > 4 ? 4 : num < 0 ? 0 : num;
@@ -293,7 +334,7 @@ public class GameFrame extends JFrame {
 				clickedSettingsUpdater(buttonBoard[x][y]);
 			}
 		}
-		PopupDialog p = new PopupDialog(PopupDialog.GameState.LOSS, this);
+		PopupDialog p = new PopupDialog(GameState.LOSS, this);
 	}
 
 	public String getDifficulty() {
